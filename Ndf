@@ -1,0 +1,14 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm, poisson
+# Normal Distribution
+x = np.linspace(-5, 10, 100)
+pdf = norm.pdf(x, loc=2, scale=1.5)
+cdf = norm.cdf(x, loc=2, scale=1.5)
+plt.plot(x, pdf, label='Normal PDF')
+plt.plot(x, cdf, label='Normal CDF')
+plt.title('PDF and CDF (Normal)')
+plt.xlabel('x')
+plt.ylabel('Density / Cumulative Probability')
+plt.legend()
+plt.show()
