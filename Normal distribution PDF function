@@ -1,0 +1,36 @@
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Function to generate evenly spaced values (like np.linspace)
+def mylinspace(start, stop, num):
+    step = (stop - start) / (num - 1)  # Ensure the correct number of steps
+    return [start + i * step for i in range(num)]
+
+# Normal distribution PDF function
+def mynormal_pdf(x, mean, std_dev):
+    coefficient = 1 / (math.sqrt(2 * math.pi) * std_dev)
+    exponent = -((x - mean) ** 2) / (2 * std_dev ** 2)
+    return coefficient * math.exp(exponent)
+
+# Parameters for normal distribution
+mean = 2
+std_dev = 1.5
+
+# Generate data for x values using mylinspace
+x_values = mylinspace(-5, 10, 100)
+
+# Generate PDF values for the normal distribution
+normal_dist = [mynormal_pdf(val, mean, std_dev) for val in x_values]
+
+# Plot the PDF of the normal distribution
+plt.figure(figsize=(12, 6))
+plt.plot(x_values, normal_dist, label=f'Normal ($\mu={mean}$, $\sigma={std_dev}$)', color='blue')
+
+# Add labels and title (use raw strings for LaTeX symbols)
+plt.title(r"Characterization of Density Functions")
+plt.xlabel(r"X values")
+plt.ylabel(r"Density")
+plt.legend()
+plt.grid(True)
+plt.show()
