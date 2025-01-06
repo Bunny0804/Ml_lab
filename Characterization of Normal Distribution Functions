@@ -1,0 +1,39 @@
+import math
+import matplotlib.pyplot as plt # Importing the necessary library for plotting
+def mylinspace(start, stop, num):
+ """Generate a list of evenly spaced values between start and stop."""
+ step = (stop - start) / (num - 1)
+ return [start + i * step for i in range(num)]
+def mynormal_pdf(x, mean, std_dev):
+ """Calculate the PDF of a normal distribution."""
+ coecient = 1 / (math.sqrt(2 * math.pi) * std_dev)
+ exponent = math.exp(-((x - mean) ** 2) / (2 * std_dev ** 2))
+ return coecient * exponent
+def mynormal_cdf(x, mean, std_dev):
+ """Calculate the CDF of a normal distribution using numerical integration."""
+ step = 0.001 # Small step for numerical integration
+ cumulative = 0
+ current = -10 # Start from a suciently low value
+ while current <= x:
+  cumulative += mynormal_pdf(current, mean, std_dev) * step
+  current += step
+ return cumulative
+# Parameters
+mean, std_dev = 2, 1.5
+# Generate data for x values
+x = mylinspace(-5, 10, 100)
+# Generate PDF and CDF values
+normal_dist = [mynormal_pdf(val, mean, std_dev) for val in x]
+cdf = [mynormal_cdf(val, mean, std_dev) for val in x]
+# Plot PDF and CDF for normal distribution
+plt.figure(figsize=(12, 6))
+plt.plot(x, normal_dist, label=f'Normal PDF (μ={mean}, σ={std_dev})', color='blue')
+plt.plot(x, cdf, label=f'Normal CDF (μ={mean}, σ={std_dev})', color='orange')
+# Add labels and title
+plt.title("Characterization of Normal Distribution Functions")
+plt.xlabel("X values")
+plt.ylabel("Value")
+plt.legend()
+plt.grid(True)
+# Show the plot
+plt.show()
