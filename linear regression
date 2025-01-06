@@ -1,0 +1,50 @@
+import pandas as pd 
+import numpy as np 
+from matplotlib import pyplot as plt
+
+X = np.asarray([20, 5, 10, 13, 12]) 
+y = np.asarray([18,6,13,12,13])
+
+#Create pandas dataframe to store our X and y values
+
+df = pd.DataFrame( {'X': X, 'y': y} )
+
+rows = df.shape[0] 
+cols= df.shape[1]  
+df.head() 
+plt.scatter(X, y) 
+plt.show()
+
+print("Total Rows: " + str(rows)) 
+print("Total Columns: "+str(cols))
+
+xmean = np.mean(X) 
+ymean = np.mean(y)
+
+xy=np.sum(X*y)
+xymean =np.mean(X*y)
+x2s=X**2 
+x2smean=np.mean(x2s)
+xmean2s=xmean**2
+
+b1=(xymean-xmean*ymean)/(x2smean-xmean2s) 
+b0=ymean-(b1*xmean)
+
+print(f'b0= (b0)') 
+print(f'b1 = (b1)')
+
+ypred=b0+(b1*X)
+print("Predction: \n",ypred) 
+ypdif=y-ypred 
+print("Mean of y and y pred diff",np.mean(ypdif)) 
+ypdif2=ypdif**2 
+print("Mean of square y and y pred diff",np.mean(ypdif2))
+plt.figure(figsize=(10, 5))
+
+
+plt.plot(X, ypred) 
+plt.plot(X, y, 'ro') 
+plt.title('Actual vs Predicted') 
+plt.xlabel('X') 
+plt.ylabel('y')
+plt.show()
